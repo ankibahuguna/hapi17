@@ -1,0 +1,41 @@
+{
+  "name": "hapi17",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_CONFIG_DIR=./src/config node index.js | ./node_modules/bunyan/bin/bunyan",
+    "test": "./node_modules/mocha/bin/mocha",
+    "eslint": "./node_modules/eslint/bin/eslint.js .",
+    "eslint-fix": "./node_modules/eslint/bin/eslint.js . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@now-ims/hapi-now-auth": "^1.0.1",
+    "bcrypt": "^1.0.3",
+    "boom": "^7.1.1",
+    "bunyan": "^1.8.12",
+    "config": "^1.29.0",
+    "fs-extra": "^5.0.0",
+    "glue": "^5.0.0",
+    "good": "github:hapijs/good",
+    "good-console": "^6.4.1",
+    "good-squeeze": "^5.0.2",
+    "hapi": "^17.2.0",
+    "hapi-swagger": "^9.0.1",
+    "inert": "^5.0.1",
+    "ioredis": "^3.2.2",
+    "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
+    "mocha": "^4.1.0",
+    "mongoose": "^5.0.0-rc1",
+    "vision": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
