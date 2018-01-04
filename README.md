@@ -4,18 +4,19 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Hapi-17 project that uses JWT, Swagger and Glue along with mongodb and redis to store data.
+
+For JWT authentication I am using https://www.npmjs.com/package/@now-ims/hapi-now-auth, as this is the only plugin
+that seems to work with Hapi 17.
+
+The JWT tokens are stored in Redis while the user data in stored in MongoDB
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+npm install
+npm start
+
+
 
 ### Contribution guidelines ###
 
