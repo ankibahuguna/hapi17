@@ -13,14 +13,3 @@ The JWT tokens are stored in Redis, while the user data in stored in MongoDB.
 npm install && npm start
 
 To check swagger documentation visit http://127.0.0.1:3000/documentation
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact

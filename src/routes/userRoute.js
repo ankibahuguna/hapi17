@@ -13,6 +13,12 @@ module.exports = [
       tags: ["api", "users"],
       auth: false,
       handler: User.get.bind(User),
+      validate: {
+        query: {
+          skip: Joi.number().integer().default(0).optional(),
+          limit: Joi.number().integer().default(10).optional(),
+        },
+      },
     },
   },
   {
