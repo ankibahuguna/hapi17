@@ -19,6 +19,7 @@ function InternalError(err) {
 
 const startServer = async () => {
   const Server = await Glue.compose(manifest, { relativeTo: __dirname });
+  Logger.debug("Mongo URL ", Config.get("MONGO_URL"), process.env.MONGO_HOST);
   await Mongoose.connect(Config.get("MONGO_URL"));
 
   Server.auth.strategy("jwt-strategy", "hapi-now-auth", {

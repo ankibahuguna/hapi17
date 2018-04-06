@@ -1,0 +1,31 @@
+version: "2"
+services:
+  app:
+    container_name: hapi17
+    restart: always
+    build: .
+    ports:
+     - "3000:3000"
+    env_file:
+     - .env
+    environment:
+     - NODE_ENV=production
+     - DEBUG=true
+     - PORT=3000
+    links:
+      - mongo_docker
+      - redis_docker
+  mongo_docker:
+    container_name: mongo_docker
+    image: mongo
+    volumes:
+      - ./data:/usr/data/db
+    expose:
+      - "${MONGO_PORT}"
+    restart: always
+  redis_docker:
+    container_name: redis
+    image: redis
+    expose:
+      - "${REDIS_PORT}"
+    restart: always

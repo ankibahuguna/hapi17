@@ -2,7 +2,7 @@ const Pack = require("./package");
 
 module.exports = {
   server: {
-    port: 3000,
+    port: process.env.PORT,
     routes: { cors: { origin: ["*"] } },
   },
   register: {
