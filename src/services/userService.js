@@ -6,8 +6,8 @@ class UserService {
     this.model = new DAO(Models.Users);
   }
 
-  async getUserById(id) {
-    return this.model.findOne({ _id: id }, {}, {});
+  async getUserById(id, projection = {}, options = { lean: true }) {
+    return this.getUser({ _id: id }, projection, options);
   }
 
   async getUserByEmail(email) {

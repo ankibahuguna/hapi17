@@ -32,6 +32,19 @@ module.exports = [
         headers: Joi.object({ authorization: Joi.string().optional() }).unknown(),
         failAction: Helpers.failAction,
       },
+      response: {
+        status: {
+          200: Joi.object().keys({
+            profile: Joi.object().keys({
+              name: Joi.string().required(),
+              email: Joi.string().required(),
+              _id: Joi.any().required(),
+            }).required(),
+
+          }).required(),
+        },
+        failAction: Helpers.failAction,
+      },
     },
   },
 ];

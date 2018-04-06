@@ -18,7 +18,7 @@ class UserController {
   async getProfile({ auth }, h) {
     try {
       return {
-        profile: await this.service.getUserById(auth.artifacts.id),
+        profile: await this.service.getUserById(auth.artifacts.id, { email: 1, name: 1, _id: 1 }),
       };
     } catch (err) {
       return h.internalError(err);
