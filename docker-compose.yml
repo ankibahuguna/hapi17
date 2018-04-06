@@ -11,7 +11,8 @@ services:
     environment:
      - NODE_ENV=production
      - DEBUG=true
-     - PORT=3000
+     - PORT=${PORT}
+     - HOST=${HOST}
     links:
       - mongo_docker
       - redis_docker

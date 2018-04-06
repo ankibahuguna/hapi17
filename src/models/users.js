@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const Users = new Schema({
   name: { type: String },
   password: { type: String },
-  email: { type: String, index: true },
+  email: { type: String, unique: true },
 }, {
   timestamps: true,
 });
