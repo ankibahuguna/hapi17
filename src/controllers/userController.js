@@ -2,6 +2,8 @@ const Services = require("../services");
 
 class UserController {
   constructor() {
+    this.get = this.get.bind(this);
+    this.getProfile = this.getProfile.bind(this);
     this.service = new Services.UserService();
   }
 

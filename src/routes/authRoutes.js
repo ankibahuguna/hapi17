@@ -9,7 +9,7 @@ module.exports = [
     path: "/users/register",
     method: "POST",
     options: {
-      handler: Auth.registerUser.bind(Auth),
+      handler: Auth.registerUser,
       description: "Register new user",
       tags: ["api", "auth"],
       auth: false,
@@ -35,7 +35,7 @@ module.exports = [
     path: "/users/login",
     method: "POST",
     options: {
-      handler: Auth.loginUser.bind(Auth),
+      handler: Auth.loginUser,
       description: "Login user",
       tags: ["api", "auth"],
       auth: false,

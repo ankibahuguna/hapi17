@@ -12,7 +12,7 @@ module.exports = [
       description: "Get all users",
       tags: ["api", "users"],
       auth: false,
-      handler: User.get.bind(User),
+      handler: User.get,
       validate: {
         query: {
           skip: Joi.number().integer().default(0).optional(),
@@ -25,7 +25,7 @@ module.exports = [
     path: "/users/profile",
     method: "GET",
     options: {
-      handler: User.getProfile.bind(User),
+      handler: User.getProfile,
       description: "Get user profile information",
       tags: ["api", "users"],
       validate: {
