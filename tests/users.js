@@ -24,16 +24,16 @@ test("register user", async (t) => {
   t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), true);
 });
 
-test("login user", async (t) => {
+test("login should fail with incorrect password", async (t) => {
   const request = {
     method: "POST",
     url: "/users/login",
-    payload: JSON.stringify({ email: "ankiit.bahuguna@gmail.com", password: "Cogito@123" }),
+    payload: JSON.stringify({ email: "ankiit.bahuguna@gmail.com", password: "incorrectpassword" }),
   };
   const response = await t.context.Server.inject(request);
-  t.is(response.statusCode, 200);
+  t.is(response.statusCode, 403);
   t.is(typeof response.result, "object");
-  t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), true);
+  t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), false);
 });
 
 test("authentication", async (t) => {
