@@ -4,3 +4,6 @@ node_modules
 .vscode
 logs
 dep
+.nyc_output/
+yarn-error.log
+

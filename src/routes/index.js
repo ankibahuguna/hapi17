@@ -1,7 +1,8 @@
 const Users = require("./userRoute");
 const Auth = require("./authRoutes");
+const Health = require("./health");
 
-const Routes = Users.concat(Auth);
+const Routes = Users.concat(Auth, Health);
 
 const Plugin = {
   name: "Routes",

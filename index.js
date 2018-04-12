@@ -17,7 +17,7 @@ function InternalError(err) {
   return this.response({ statusCode: 500, message: "Something went wrong", error: err }).code(500);
 }
 
-const startServer = async () => {
+const getServer = async () => {
   const Server = await Glue.compose(manifest, { relativeTo: __dirname });
   Logger.debug("Mongo URL ", Config.get("MONGO_URL"), process.env.MONGO_HOST);
   await Mongoose.connect(Config.get("MONGO_URL"));
@@ -31,7 +31,7 @@ const startServer = async () => {
   Server.decorate("toolkit", "InternalError", InternalError);
 
 
-  return Server.start();
+  return Server;
 };
 
 // Log all uncaught errors in log file and terminal
@@ -43,11 +43,13 @@ process
     Logger.fatal(err, "Uncaught Exception thrown");
   });
 
-startServer()
-  .then((r) => {
-    Logger.info(`Server started ${r}`);
+getServer()
+  .then(Server => Server.start())
+  .then((res) => {
+    Logger.info(res);
   })
   .catch((err) => {
     Logger.error(err, "Could not start server.");
     process.exit(1);
   });
+module.exports = getServer;

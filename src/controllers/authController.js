@@ -11,6 +11,7 @@ const saltRounds = 10;
 class AuthController {
   constructor() {
     this.registerUser = this.registerUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     this.service = new Services.UserService();
   }
 

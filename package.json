@@ -5,15 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_CONFIG_DIR=./src/config node index.js | ./node_modules/bunyan/bin/bunyan",
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "NODE_CONFIG_DIR=./src/config node_modules/.bin/ava tests/**/*.js --verbose",
     "eslint": "./node_modules/eslint/bin/eslint.js .",
-    "eslint-fix": "./node_modules/eslint/bin/eslint.js . --fix"
+    "eslint-fix": "./node_modules/eslint/bin/eslint.js . --fix",
+    "test:watch": "node_modules/.bin/ava --verbose --watch",
+    "cover": "node_modules/.bin/nyc yarn test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@now-ims/hapi-now-auth": "^1.0.1",
+    "ava": "^0.25.0",
     "bcrypt": "^1.0.3",
     "boom": "^7.1.1",
     "bunyan": "^1.8.12",
@@ -29,8 +32,9 @@
     "ioredis": "^3.2.2",
     "joi": "^13.0.2",
     "jsonwebtoken": "^8.1.0",
-    "mocha": "^4.1.0",
     "mongoose": "^5.0.0-rc1",
+    "nyc": "^11.6.0",
+    "supertest": "^3.0.0",
     "vision": "^5.2.0"
   },
   "devDependencies": {
