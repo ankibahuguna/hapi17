@@ -19,7 +19,6 @@ function InternalError(err) {
 
 const getServer = async () => {
   const Server = await Glue.compose(manifest, { relativeTo: __dirname });
-  Logger.debug("Mongo URL ", Config.get("MONGO_URL"), process.env.MONGO_HOST);
   await Mongoose.connect(Config.get("MONGO_URL"));
 
   Server.auth.strategy("jwt-strategy", "hapi-now-auth", {
@@ -43,13 +42,15 @@ process
     Logger.fatal(err, "Uncaught Exception thrown");
   });
 
-getServer()
-  .then(Server => Server.start())
-  .then((res) => {
-    Logger.info(res);
-  })
-  .catch((err) => {
-    Logger.error(err, "Could not start server.");
-    process.exit(1);
-  });
+if (!module.parent) {
+  getServer()
+    .then(Server => Server.start())
+    .then((res) => {
+      Logger.info(res);
+    })
+    .catch((err) => {
+      Logger.error(err, "Could not start server.");
+      process.exit(1);
+    });
+}
 module.exports = getServer;
