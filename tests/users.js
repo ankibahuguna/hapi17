@@ -21,7 +21,7 @@ test("register user", async (t) => {
   const response = await t.context.Server.inject(request);
   t.is(response.statusCode, 201);
   t.is(typeof response.result, "object");
-  t.is(Object.prototype.hasOwnProperty.call(response.result, "name"), true);
+  t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), true);
 });
 
 test("login should fail with incorrect password", async (t) => {
