@@ -1,12 +1,8 @@
 const Glue = require("glue");
 const Config = require("config");
 const Mongoose = require("mongoose");
-
 const AuthJWT = require("./src/auth");
-
 const Logger = require("./src/logger");
-
-
 const manifest = require("./manifest");
 
 Mongoose.Promise = Promise;
