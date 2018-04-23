@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_CONFIG_DIR=./src/config node index.js | ./node_modules/bunyan/bin/bunyan",
-    "test": "NODE_CONFIG_DIR=./src/config node_modules/.bin/ava tests/**/*.js --verbose",
+    "test": "MONGO_URL='mongodb://localhost:27017/hapi17-test' NODE_CONFIG_DIR=./src/config node_modules/.bin/ava tests/**/*.js --verbose",
     "eslint": "./node_modules/eslint/bin/eslint.js .",
     "eslint-fix": "./node_modules/eslint/bin/eslint.js . --fix",
     "test:watch": "node_modules/.bin/ava --verbose --watch",
-    "cover": "node_modules/.bin/nyc yarn test"
+    "cover": "node_modules/.bin/nyc npm test"
   },
   "keywords": [],
   "author": "",

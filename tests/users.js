@@ -1,4 +1,6 @@
 const { test } = require("ava");
+const Mongoose = require("mongoose");
+
 const app = require("../index.js");
 
 
@@ -107,3 +109,7 @@ async function profile(token, t) {
   t.is(typeof profileResponse.result.profile, "object");
   return profileResponse.result.profile;
 }
+
+test.after.always("Clean up test database", async () => {
+  await Mongoose.connection.db.dropDatabase();
+});
