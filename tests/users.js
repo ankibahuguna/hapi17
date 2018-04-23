@@ -13,15 +13,8 @@ test("check status", async (t) => {
 
 
 test("register user", async (t) => {
-  const request = {
-    method: "POST",
-    url: "/users/register",
-    payload: JSON.stringify({ name: "Ankit Bahuguna", email: "ankiit.bahuguna@gmail.com", password: "123456789" }),
-  };
-  const response = await t.context.Server.inject(request);
-  t.is(response.statusCode, 201);
-  t.is(typeof response.result, "object");
-  t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), true);
+  const userData = { name: "Ankit Bahuguna", email: "ankiit.bahuguna@gmail.com", password: "123456789" };
+  await register(userData, t);
 });
 
 test("login should fail with incorrect password", async (t) => {
@@ -52,3 +45,65 @@ test("Get users", async (t) => {
   t.is(response.statusCode, 200);
   t.is(Array.isArray(response.result), true);
 });
+
+
+test("Test register -> profile -> login -> profile Flow", async (t) => {
+  const userDetails = {
+    name: "Ankit Bahuguna",
+    email: "ankiit.bahuguna@yahoo.com",
+    password: "123456789",
+  };
+  const initialToken = await register(userDetails, t);
+
+  const registeredUser = await profile(initialToken, t);
+
+  const token = await login({ email: userDetails.email, password: userDetails.password }, t);
+
+  const profileDetails = await profile(token, t);
+
+  t.deepEqual(registeredUser, profileDetails);
+  // console.log(profileResponse);
+});
+
+async function register(data, t) {
+  const registrationData = {
+    method: "POST",
+    url: "/users/register",
+    payload: JSON.stringify(data),
+  };
+  const registrationResponse = await t.context.Server.inject(registrationData);
+  t.is(registrationResponse.statusCode, 201);
+  t.is(typeof registrationResponse.result, "object");
+  t.is(Object.prototype.hasOwnProperty.call(registrationResponse.result, "token"), true);
+
+  return registrationResponse.result.token;
+}
+
+async function login(data, t) {
+  const loginData = {
+    method: "POST",
+    url: "/users/login",
+    payload: JSON.stringify(data),
+  };
+
+  const response = await t.context.Server.inject(loginData);
+  t.is(response.statusCode, 200);
+  t.is(typeof response.result, "object");
+  t.is(Object.prototype.hasOwnProperty.call(response.result, "token"), true);
+
+  return response.result.token;
+}
+
+async function profile(token, t) {
+  const profileRequest = {
+    method: "GET",
+    url: "/users/profile",
+    headers: { authorization: `bearer ${token}` },
+  };
+  const profileResponse = await t.context.Server.inject(profileRequest);
+
+  t.is(profileResponse.statusCode, 200);
+  t.is(typeof profileResponse.result, "object");
+  t.is(typeof profileResponse.result.profile, "object");
+  return profileResponse.result.profile;
+}
