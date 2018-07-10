@@ -1,8 +1,12 @@
 const Joi = require("joi");
-const UserController = require("../controllers").Users;
 const Helpers = require("../helpers");
 
-const User = new UserController();
+const Types = require("../types");
+const Container = require("../container");
+
+const User = Container.get(Types.UserController);
+console.log(User);
+
 module.exports = [
   {
     path: "/users",

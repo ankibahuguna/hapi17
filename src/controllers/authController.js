@@ -2,22 +2,19 @@ const JWT = require("jsonwebtoken");
 const Boom = require("boom");
 const Config = require("config");
 const Bcrypt = require("bcrypt");
-
-const Services = require("../services");
+const autoBind = require("auto-bind");
 const Redis = require("../redis");
 
 const saltRounds = 10;
 
 class AuthController {
-  constructor() {
-    this.registerUser = this.registerUser.bind(this);
-    this.loginUser = this.loginUser.bind(this);
-    this.service = new Services.UserService();
+  constructor(userService) {
+    autoBind(this);
+    this.service = userService;
   }
 
-  async registerUser(request, h) {
+  async registerUser({ payload }, h) {
     try {
-      const { payload } = request;
       payload.password = await Bcrypt.hash(payload.password, saltRounds);
       const user = await this.service.registerUser(payload);
       const response = {
@@ -29,11 +26,11 @@ class AuthController {
     }
   }
 
-  async loginUser(request, h) {
+  async loginUser({ payload }, h) {
     try {
-      const user = await this.service.getUser({ email: request.payload.email }, { }, {});
+      const user = await this.service.getUser({ email: payload.email }, { }, {});
       if (!user) return Boom.forbidden("Email/password combination is incorrect");
-      if (await Bcrypt.compare(request.payload.password, user.password) === false) {
+      if (await Bcrypt.compare(payload.password, user.password) === false) {
         return Boom.forbidden("Email/password combination is incorrect");
       }
       const response = {

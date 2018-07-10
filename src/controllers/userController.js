@@ -1,10 +1,9 @@
-const Services = require("../services");
+const autoBind = require("auto-bind");
 
 class UserController {
-  constructor() {
-    this.get = this.get.bind(this);
-    this.getProfile = this.getProfile.bind(this);
-    this.service = new Services.UserService();
+  constructor(userService) {
+    autoBind(this);
+    this.service = userService;
   }
 
   async get({ query }, h) {

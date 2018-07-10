@@ -1,9 +1,10 @@
 const Joi = require("joi");
-const { AuthController } = require("../controllers");
 const Helpers = require("../helpers");
 const Logger = require("../logger");
+const Types = require("../types");
+const Container = require("../container");
 
-const Auth = new AuthController();
+const Auth = Container.get(Types.AuthController);
 module.exports = [
   {
     path: "/users/register",
